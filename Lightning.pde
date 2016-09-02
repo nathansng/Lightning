@@ -61,6 +61,15 @@ void draw() {
 
 	p1.peopleShow();
 	p1.peopleMove();
+
+	if (keyPressed == true ) {
+		if (key == CODED) {
+			if (keyCode == UP) {
+				textAlign(CENTER);
+				text("He's actually immune to lightning \n LOL\nBut you can always try again :D", 150, 150);
+			}
+		}
+	}
 }
 
 void mousePressed() {
@@ -68,7 +77,7 @@ void mousePressed() {
 	startY = 0;
 	endX = 150;
 	endY = 0;
-	fill(255,255,255,75);
+	fill(255,255,255,125);
 	rect(-50,-50,500,500);
 }
 
@@ -226,12 +235,3 @@ class People {
 	
 }
 
-void keyPressed() {
-	if (key == CODED) {
-		if (keyCode == UP) {
-			background(0);
-			textAlign(CENTER);
-			text("He's actually immune to lightning \n LOL\nBut you can always try again :D", 150, 150);
-		}
-	}
-}
