@@ -3,6 +3,8 @@ int startY = 0;
 int endX = 150;
 int endY;
 
+boolean shocked;
+
 int aX = (int)(Math.random() * 30) - 15;
 int bX = (int)(Math.random() * 30) + 35;
 int cX = (int)(Math.random() * 30) + 85;
@@ -115,56 +117,121 @@ class Cloud {
 
 class People {
 	int peopleX, peopleY;
-	boolean shocked, moveRight;
+	boolean moveRight;
+
+	boolean shocked = false;
 
 	People (int x) {
 		peopleX = x;
 		peopleY = 250;
-		shocked = false;
 		moveRight = true;
 	}
 
 	void peopleMove () {
-		if (peopleX < 25) {
-			moveRight = true;
-		}
-		if (peopleX > 275) {
-			moveRight = false;
-		}
+		if (shocked == false) {
+			if (peopleX < 25) {
+				moveRight = true;
+			}
+			if (peopleX > 275) {
+				moveRight = false;
+			}
 
 
-		if (moveRight == true) {
-			peopleX += 1;
-		}	else if (moveRight == false) {
-			peopleX -= 1;
+			if (moveRight == true) {
+				peopleX += 1;
+			}	else if (moveRight == false) {
+				peopleX -= 1;
+			}
 		}
 	}
 
 	void peopleShow () {
 		fill(255);
-		
-		if (moveRight == true) {
+
+		int move = 1;
+
+		if (shocked == false) {
+ 
+			if (peopleX > 50 && peopleX < 75 || peopleX > 100 && peopleX < 125 || peopleX > 150 && peopleX < 175 || peopleX > 200 && peopleX < 225 || peopleX > 250 && peopleX < 275 || peopleX > 300 && peopleX < 325 || peopleX > 350 && peopleX < 375) {
+				move = 1;
+			} else {
+				move = 2;
+			}
+			
+			if (moveRight == true) {
+				if (move == 1) {
+					noStroke();
+					ellipse(peopleX, peopleY, 25, 25);
+					stroke(255);
+					line(peopleX, peopleY + 13, peopleX, peopleY + 30);
+					line (peopleX, peopleY + 15, peopleX + 10, peopleY + 25); 	//arms
+					line (peopleX, peopleY + 15, peopleX - 5, peopleY + 25); 
+					line (peopleX, peopleY + 30, peopleX + 10, peopleY + 50); 	//legs
+					line (peopleX, peopleY + 30, peopleX - 5, peopleY + 50);
+				}
+				if (move == 2) {
+					noStroke();
+					ellipse(peopleX, peopleY, 25, 25);
+					stroke(255);
+					line(peopleX, peopleY + 13, peopleX, peopleY + 30);
+					line (peopleX, peopleY + 15, peopleX + 5, peopleY + 25);
+					line (peopleX, peopleY + 30, peopleX, peopleY + 50); 	//legs
+				}
+			}
+			if (moveRight == false) {
+				if (move == 1) {
+					noStroke();
+					ellipse(peopleX, peopleY, 25, 25);
+					stroke(255);
+					line(peopleX, peopleY + 13, peopleX, peopleY + 30);
+					line (peopleX, peopleY + 15, peopleX - 5, peopleY + 25);
+					line (peopleX, peopleY + 30, peopleX, peopleY + 50);
+				}
+				if (move == 2) {
+					noStroke();
+					ellipse(peopleX, peopleY, 25, 25);
+					stroke(255);
+					line(peopleX, peopleY + 13, peopleX, peopleY + 30);
+					line (peopleX, peopleY + 15, peopleX - 10, peopleY + 25); 	//arms
+					line (peopleX, peopleY + 15, peopleX + 5, peopleY + 25); 
+					line (peopleX, peopleY + 30, peopleX - 10, peopleY + 50); 	//legs
+					line (peopleX, peopleY + 30, peopleX + 5, peopleY + 50);
+				}
+				
+			}
+				
+		}
+
+		if (shocked == true) {
+			fill(255, 255, 0);
+			stroke(255, 255, 0);
+			strokeWeight(5);
+			rect(peopleX - 15, peopleY - 15, 30, 80, 50);
+
 			noStroke();
+			fill(255);
 			ellipse(peopleX, peopleY, 25, 25);
 			stroke(255);
+			strokeWeight(1);
 			line(peopleX, peopleY + 13, peopleX, peopleY + 30);
-			line (peopleX, peopleY + 15, peopleX + 10, peopleY + 25);
+			line (peopleX, peopleY + 20, peopleX - 10, peopleY + 10); 	//arms
+			line (peopleX, peopleY + 20, peopleX + 10, peopleY + 10); 
+			line (peopleX, peopleY + 30, peopleX - 10, peopleY + 50); 	//legs
 			line (peopleX, peopleY + 30, peopleX + 10, peopleY + 50);
-			line (peopleX, peopleY + 30, peopleX - 5, peopleY + 50);
+
+
 		}
-		if (moveRight == false) {
-			noStroke();
-			ellipse(peopleX, peopleY, 25, 25);
-			stroke(255);
-			line(peopleX, peopleY + 13, peopleX, peopleY + 30);
-			line (peopleX, peopleY + 15, peopleX - 10, peopleY + 25);
-			line (peopleX, peopleY + 30, peopleX - 10, peopleY + 50);
-			line (peopleX, peopleY + 30, peopleX + 5, peopleY + 50);
-		}
-		
 	}
 
-	void peopleShocked () {
+	
+}
 
+void keyPressed() {
+	if (key == CODED) {
+		if (keyCode == UP) {
+			background(0);
+			textAlign(CENTER);
+			text("He's actually immune to lightning \n LOL\nBut you can always try again :D", 150, 150);
+		}
 	}
 }
