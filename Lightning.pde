@@ -3,7 +3,13 @@ int startY = 0;
 int endX = 150;
 int endY;
 
+int startXAuto = (int)(Math.random()*225)+50;
+int startYAuto = 0;
+int endXAuto = startXAuto;
+int endYAuto;
+
 boolean shocked;
+boolean auto = false;
 
 int aX = (int)(Math.random() * 30) - 15;
 int bX = (int)(Math.random() * 30) + 35;
@@ -40,6 +46,17 @@ void setup() {
 
 void draw() {
 	lightning();
+
+	if (keyPressed == true && key == 32) {
+		auto = true;
+	} else {
+		auto = false;
+	}
+
+	if (auto == true) {
+		autoLightning();
+	}
+
 	a.show();
 	a.cloudMove();
 	b.show();
@@ -66,7 +83,7 @@ void draw() {
 		if (key == CODED) {
 			if (keyCode == UP) {
 				textAlign(CENTER);
-				text("He's actually immune to lightning \n LOL\nBut you can always try again :D", 150, 150);
+				text("He's actually immune to lightning\nLOL\nBut you can always keep trying :D", 150, 150);
 			}
 		}
 	}
@@ -95,6 +112,29 @@ void lightning () {
 		startX = endX;
 		startY = endY;
 	}
+}
+
+void reset () {
+	startXAuto = (int)(Math.random()*225)+50;
+	startYAuto = 0;
+	endXAuto = startXAuto;
+	endYAuto = 0;
+	fill(255,255,255,125);
+	rect(-50,-50,500,500);
+}
+
+void autoLightning () {
+	int lightningColor = (int)(Math.random()*200)+50;
+	int lightningColor2 = (int)(Math.random()*200)+50;
+	stroke(lightningColor, lightningColor, lightningColor2);
+	while (endYAuto < 345) {
+		endXAuto = startXAuto + (int)(random(-9, 9));
+		endYAuto = startYAuto + (int)(random(0, 9));
+		line(startXAuto, startYAuto, endXAuto, endYAuto);
+		startXAuto = endXAuto;
+		startYAuto = endYAuto;
+	}
+	reset();
 }
 
 class Cloud {
@@ -234,4 +274,3 @@ class People {
 
 	
 }
-
